@@ -28,7 +28,7 @@ Nothing fancy — and that's on purpose. The goal is for you to modify it, not t
 
 ```bash
 # Clone the repo
-git clone <REPO_URL>
+git clone https://github.com/alexgriffen-docker/ae-workshop-app.git
 cd ae-workshop-app
 
 # Install dependencies
