@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AE Workshop App</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-brand">AE Workshop App</div>
+    <ul class="nav-links">
+      <li><a href="#home" class="active">Home</a></li>
+      <li><a href="#team">Team</a></li>
+      <!--
+        Workshop participants: Add new navigation links here!
+        Example: <li><a href="#about">About</a></li>
+      -->
+    </ul>
+  </nav>
+
+  <main>
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+      <h1 id="welcome-message">Welcome to the AE Workshop App!</h1>
+      <p id="welcome-subtitle">Built by developers, experienced by AEs.</p>
+      <p class="hero-description">
+        This is a simple web application used in Docker's AE Developer Empathy Workshop.
+        Your job is to make changes to this app — just like a real developer would.
+      </p>
+    </section>
+
+    <!-- Team Section -->
+    <section id="team" class="team-section">
+      <h2>Meet the Team</h2>
+      <div id="team-grid" class="team-grid">
+        <!-- Team members are loaded here by JavaScript -->
+        <p class="loading">Loading team members...</p>
+      </div>
+    </section>
+
+    <!--
+      =============================================
+      WORKSHOP PARTICIPANTS: ADD NEW SECTIONS HERE!
+
+      Try adding a new section below. For example:
+      - An "About" section describing your team
+      - A "Contact" form
+      - A "Fun Facts" page
+      - Anything you want!
+
+      Ask Copilot for help if you're not sure how.
+      =============================================
+    -->
+
+  </main>
+
+  <footer>
+    <p>AE Developer Empathy Workshop &mdash; Docker 2026</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,113 @@
+# -------------------------------------------------------
+# CI/CD Pipeline — AE Workshop App
+#
+# This workflow runs automatically every time someone
+# pushes code or opens a pull request. It checks that
+# the code is clean, the tests pass, and the app builds.
+#
+# Workshop participants: this is the pipeline you'll
+# review in Block 3!
+# -------------------------------------------------------
+
+name: CI Pipeline
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  # -------------------------------------------------------
+  # Step 1: Install dependencies and check they're valid
+  # -------------------------------------------------------
+  install:
+    name: Install Dependencies
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+  # -------------------------------------------------------
+  # Step 2: Run the linter to check code style
+  # -------------------------------------------------------
+  lint:
+    name: Lint Code
+    runs-on: ubuntu-latest
+    needs: install
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run linter
+        run: npm run lint
+
+  # -------------------------------------------------------
+  # Step 3: Run the automated tests
+  # -------------------------------------------------------
+  test:
+    name: Run Tests
+    runs-on: ubuntu-latest
+    needs: install
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run tests
+        run: npm test
+
+  # -------------------------------------------------------
+  # Step 4: Verify the app starts successfully
+  # -------------------------------------------------------
+  build-check:
+    name: Verify App Starts
+    runs-on: ubuntu-latest
+    needs: [lint, test]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Start app and verify health check
+        run: |
+          node app.js &
+          APP_PID=$!
+          sleep 3
+          curl -f http://localhost:3000/api/health || (echo "Health check failed!" && kill $APP_PID && exit 1)
+          echo "App started successfully and health check passed!"
+          kill $APP_PID
